@@ -1,0 +1,88 @@
+# Produtos disponíveis na loja 
+produtos = [
+    ("Laptop", "Eletrônicos", 1500, 10),
+    ("Camisa", "Vestuário", 100, 20)
+]
+
+#Encomendas 
+encomendas = []
+
+while True:
+    print("1. Exibir produtos")
+    print("2. Adicionar produto ao pedido")
+    print("3. Remover produto do pedido")
+    print("4. Finalizar compra")
+    print("5. Sair")
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == '1':
+        # Exibir produtos disponíveis
+        print("nProdutos disponíveis:")
+        for produto in produtos:
+            print(f"Nome: {produto[0]}, Categoria: {produto[1]}, Preço: R${produto[2]}, Estoque: {produto[3]}")
+    
+    elif opcao == '2':
+        # Adicionar produto
+        cliente = input("Nome do cliente: ")
+        nome_produto = input("Nome do produto: ")
+        quantidade = int(input("Quantidade: "))
+        
+        for i in range(len(produtos)):
+            if produtos[i][0] == nome_produto:
+                if produtos[i][3] >= quantidade:
+                    encomendas.append((cliente, nome_produto, quantidade))
+                    produtos[i] = (produtos[i][0], produtos[i][1], produtos[i][2], produtos[i][3] - quantidade)
+                    print(f"{quantidade} unidades de {nome_produto} adicionadas ao pedido de {cliente}.")
+                else:
+                    print(f"Estoque insuficiente para {nome_produto}.")
+                break
+        else:
+            print(f"Produto {nome_produto} não encontrado.")
+    
+    elif opcao == '3':
+        # Remover produto do pedido
+        cliente = input("Nome do cliente: ")
+        nome_produto = input("Nome do produto: ")
+        quantidade = int(input("Quantidade: "))
+        
+        for i in range(len(encomendas)):
+            if encomendas[i] == (cliente, nome_produto, quantidade):
+                encomendas.pop(i)
+                for j in range(len(produtos)):
+                    if produtos[j][0] == nome_produto:
+                        produtos[j] = (produtos[j][0], produtos[j][1], produtos[j][2], produtos[j][3] + quantidade)
+                        break
+                print(f"{quantidade} unidades de {nome_produto} removidas do pedido de {cliente}.")
+                break
+        else:
+            print(f"Pedido não encontrado para {cliente} com {quantidade} unidades de {nome_produto}.")
+    
+    elif opcao == '4':
+        # Finalizar compra
+        cliente = input("Nome do cliente: ")
+        total = 0
+        
+        for encomenda in encomendas:
+            if encomenda[0] == cliente:
+                for produto in produtos:
+                    if produto[0] == encomenda[1]:
+                        total += produto[2] * encomenda[2]
+                        break
+        
+        if total > 500:
+            total_com_desconto = total * 0.9
+        else:
+            total_com_desconto = total
+        
+        print(f"Total da compra para {cliente} (com desconto se aplicável): R${total_com_desconto}.")
+        
+        # Remover todos os pedidos do cliente após finalizar a compra
+        encomendas = [encomenda for encomenda in encomendas if encomenda[0] != cliente]
+    
+    elif opcao == '5':
+        print("Saindo do sistema.")
+        break
+    
+    else:
+        print("Opção inválida. Tente novamente.")
+§§
