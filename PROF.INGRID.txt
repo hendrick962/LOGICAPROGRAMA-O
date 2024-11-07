@@ -1,3 +1,21 @@
+"Hendrick Martins 
+RA: 5371511 
+Luan Santana dos Santos 
+Ra:5272696
+Matheus fedelix
+Ra:5412421
+Pedro Teles de Oliveira 
+Ra:5414211
+Juan Cruz de Sousa 
+Ra:5380014
+Matheus Nascimento Silva 
+Ra:5558301
+Luís Fabiano
+Ra:5387868
+Diego pedroso Vieira 
+5336198
+
+
 # Produtos disponíveis na loja 
 produtos = [
     ("Laptop", "Eletrônicos", 1500, 10),
